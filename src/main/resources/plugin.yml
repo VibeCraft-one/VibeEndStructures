@@ -1,0 +1,17 @@
+name: VibeEndStructures
+version: '${version}'
+main: ru.vibecraft.vibeendstructures.VibeEndStructuresPlugin
+api-version: '1.21'
+description: ''
+authors: [godblessa]
+
+commands:
+  vibeend:
+    description: ''
+    usage: ''
+    permission: vibeend.admin
+
+permissions:
+  vibeend.admin:
+    description: ''
+    default: op

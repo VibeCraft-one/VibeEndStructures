@@ -1,0 +1,28 @@
+enabled: true
+
+worlds:
+  - world_the_end
+
+min-distance-from-origin: 1000
+
+min-y: 45
+
+max-structures-per-chunk: 1
+
+grid:
+  spacing: 12
+  separation: 4
+  salt: 928451883
+
+structure-min-distance: 22
+
+install-loot-datapack: true
+
+categories:
+  decoration: true
+  structure: true
+  mega_ship: true
+
+disabled-structures: []
+
+debug: false

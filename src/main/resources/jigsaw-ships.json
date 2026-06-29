@@ -1,0 +1,1146 @@
+{
+  "mega_ship": {
+    "mega_ship.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_mid",
+          "pool": "vibeend:mega_ship/side_pool",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_end.nbt": {
+      "size": [
+        35,
+        20,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            17,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_end",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_end_side.nbt": {
+      "size": [
+        3,
+        10,
+        24
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            1,
+            0
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_side",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_middle.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_mid",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            25,
+            6,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_end",
+          "pool": "vibeend:mega_ship/side_pool_end",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            35,
+            5
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_side",
+          "pool": "vibeend:mega_ship/side_pool_side",
+          "joint": "aligned"
+        }
+      ]
+    }
+  },
+  "mega_ship_basic": {
+    "mega_ship_basic.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_basic_mid",
+          "pool": "vibeend:mega_ship_basic/side_pool",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_basic_end.nbt": {
+      "size": [
+        35,
+        20,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            17,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_basic_end",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_basic_end_side.nbt": {
+      "size": [
+        3,
+        10,
+        24
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            1,
+            0
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_basic_side",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_basic_middle.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_basic_mid",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            25,
+            6,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_basic_end",
+          "pool": "vibeend:mega_ship_basic/side_pool_end",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            35,
+            5
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_basic_side",
+          "pool": "vibeend:mega_ship_basic/side_pool_side",
+          "joint": "aligned"
+        }
+      ]
+    }
+  },
+  "mega_ship_crashed": {
+    "mega_ship_crashed.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_mid",
+          "pool": "vibeend:mega_ship_crashed/side_pool",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_end.nbt": {
+      "size": [
+        35,
+        20,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            17,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_crashed_end",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_end_side.nbt": {
+      "size": [
+        6,
+        10,
+        24
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            5,
+            3,
+            1
+          ],
+          "orientation": "east_up",
+          "name": "vibeend:mega_ship_crashed_side",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_middle.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_crashed_mid",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            25,
+            6,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_end",
+          "pool": "vibeend:mega_ship_crashed/side_pool_end",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            0,
+            24,
+            6
+          ],
+          "orientation": "west_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_side",
+          "pool": "vibeend:mega_ship_crashed/side_pool_side",
+          "joint": "aligned"
+        }
+      ]
+    }
+  },
+  "mega_ship_crashed_2": {
+    "mega_ship_crashed_2.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_2_mid",
+          "pool": "vibeend:mega_ship_crashed_2/side_pool",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_2_end.nbt": {
+      "size": [
+        35,
+        20,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            17,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_crashed_2_end",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_2_end_side.nbt": {
+      "size": [
+        6,
+        10,
+        24
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            5,
+            4,
+            0
+          ],
+          "orientation": "east_up",
+          "name": "vibeend:mega_ship_crashed_2_side",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_2_middle.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_crashed_2_mid",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            25,
+            6,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_2_end",
+          "pool": "vibeend:mega_ship_crashed_2/side_pool_end",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            0,
+            25,
+            5
+          ],
+          "orientation": "west_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_2_side",
+          "pool": "vibeend:mega_ship_crashed_2/side_pool_side",
+          "joint": "aligned"
+        }
+      ]
+    }
+  },
+  "mega_ship_crashed_deepslate": {
+    "mega_ship_crashed_deepslate.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_deepslate_mid",
+          "pool": "vibeend:mega_ship_crashed_deepslate/side_pool",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_deepslate_end.nbt": {
+      "size": [
+        35,
+        20,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            18,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_crashed_deepslate_end",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_deepslate_end_side.nbt": {
+      "size": [
+        13,
+        15,
+        30
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            13,
+            1
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_crashed_deepslate_side",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_crashed_deepslate_middle.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_crashed_deepslate_mid",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            25,
+            6,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_deepslate_end",
+          "pool": "vibeend:mega_ship_crashed_deepslate/side_pool_end",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            33,
+            5
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_crashed_deepslate_side",
+          "pool": "vibeend:mega_ship_crashed_deepslate/side_pool_side",
+          "joint": "aligned"
+        }
+      ]
+    }
+  },
+  "mega_ship_deepslate": {
+    "mega_ship_deepslate.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_mid",
+          "pool": "vibeend:mega_ship_deepslate/side_pool",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_end.nbt": {
+      "size": [
+        35,
+        20,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            17,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_deepslate_end",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_end_side.nbt": {
+      "size": [
+        8,
+        20,
+        35
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            1,
+            0
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_deepslate_side",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_middle.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_deepslate_mid",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            25,
+            6,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_end",
+          "pool": "vibeend:mega_ship_deepslate/side_pool_end",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            33,
+            5
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_side",
+          "pool": "vibeend:mega_ship_deepslate/side_pool_side",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            0,
+            47,
+            28
+          ],
+          "orientation": "up_north",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_top",
+          "pool": "vibeend:mega_ship_deepslate/side_pool_top",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_top.nbt": {
+      "size": [
+        48,
+        4,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            0,
+            0
+          ],
+          "orientation": "down_north",
+          "name": "vibeend:mega_ship_deepslate_top",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    }
+  },
+  "mega_ship_deepslate_2": {
+    "mega_ship_deepslate_2.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_2_mid",
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            19,
+            16
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_2_side_3",
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_side_3",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_2_end.nbt": {
+      "size": [
+        35,
+        20,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            17,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_deepslate_2_end",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_2_end_side.nbt": {
+      "size": [
+        14,
+        35,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            3,
+            9
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_deepslate_2_side",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            0,
+            21,
+            38
+          ],
+          "orientation": "west_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_2_top",
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_top",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_2_end_side_2.nbt": {
+      "size": [
+        15,
+        15,
+        9
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            4,
+            4
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_deepslate_2_side_2",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_2_end_side_3.nbt": {
+      "size": [
+        16,
+        15,
+        28
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            0,
+            13
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_deepslate_2_side_3",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_2_end_side_4.nbt": {
+      "size": [
+        11,
+        15,
+        12
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            10,
+            2,
+            6
+          ],
+          "orientation": "east_up",
+          "name": "vibeend:mega_ship_deepslate_2_side_4",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_2_middle.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_deepslate_2_mid",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            25,
+            6,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_2_end",
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_end",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            13,
+            42
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_2_side_2",
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_side_2",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            0,
+            29,
+            34
+          ],
+          "orientation": "west_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_2_side_4",
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_side_4",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            33,
+            5
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_2_side",
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_side",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_2_top.nbt": {
+      "size": [
+        48,
+        21,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            47,
+            3,
+            36
+          ],
+          "orientation": "east_up",
+          "name": "vibeend:mega_ship_deepslate_2_top",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    }
+  },
+  "mega_ship_deepslate_3": {
+    "mega_ship_deepslate_3.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_3_mid",
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            17,
+            20
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_3_side_2",
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_side_2",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_3_end.nbt": {
+      "size": [
+        35,
+        20,
+        23
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            17,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_deepslate_3_end",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_3_end_side.nbt": {
+      "size": [
+        17,
+        38,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            8,
+            10
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_deepslate_3_side",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            0,
+            24,
+            34
+          ],
+          "orientation": "west_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_3_top",
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_top",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_3_end_side_2.nbt": {
+      "size": [
+        15,
+        10,
+        32
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            0,
+            3,
+            15
+          ],
+          "orientation": "west_up",
+          "name": "vibeend:mega_ship_deepslate_3_side_2",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_3_end_side_3.nbt": {
+      "size": [
+        48,
+        25,
+        10
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            5,
+            1,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_deepslate_3_side_3",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_3_middle.nbt": {
+      "size": [
+        48,
+        48,
+        48
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            24,
+            0,
+            0
+          ],
+          "orientation": "north_up",
+          "name": "vibeend:mega_ship_deepslate_3_mid",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            25,
+            6,
+            47
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_3_end",
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_end",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            33,
+            5
+          ],
+          "orientation": "east_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_3_side",
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_side",
+          "joint": "aligned"
+        }
+      ]
+    },
+    "mega_ship_deepslate_3_top.nbt": {
+      "size": [
+        48,
+        20,
+        38
+      ],
+      "jigsaws": [
+        {
+          "pos": [
+            3,
+            1,
+            37
+          ],
+          "orientation": "south_up",
+          "name": "minecraft:empty",
+          "target": "vibeend:mega_ship_deepslate_3_side_3",
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_side_3",
+          "joint": "aligned"
+        },
+        {
+          "pos": [
+            47,
+            1,
+            26
+          ],
+          "orientation": "east_up",
+          "name": "vibeend:mega_ship_deepslate_3_top",
+          "target": "minecraft:empty",
+          "pool": "minecraft:empty",
+          "joint": "aligned"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,1282 @@
+{
+  "pack": "",
+  "minecraft_version": "1.21.11",
+  "total_structure_types": 25,
+  "total_nbt_in_archive": 106,
+  "structures": [
+    {
+      "id": "astral_hideaway",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:astral_hideaway_start_pool",
+      "placement": {
+        "spacing": 40,
+        "separation": 18,
+        "salt": 136568741,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/astral_hideaway/astral_hideaway.nbt",
+          "location": "vibeend:astral_hideaway",
+          "weight": 1,
+          "pool": "vibeend:astral_hideaway_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "astral_meteorite",
+      "category": "decoration",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:decoration/astral_meteorite_start_pool",
+      "placement": {
+        "spacing": 27,
+        "separation": 12,
+        "salt": 477477412,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/astral_meteorite/astral_meteorite.nbt",
+          "location": "vibeend:decoration/astral_meteorite",
+          "weight": 1,
+          "pool": "vibeend:decoration/astral_meteorite_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "ender_spire",
+      "category": "decoration",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:decoration/ender_spire_start_pool",
+      "placement": {
+        "spacing": 46,
+        "separation": 38,
+        "salt": 132545875,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/ender_spire/ender_spire.nbt",
+          "location": "vibeend:decoration/ender_spire",
+          "weight": 1,
+          "pool": "vibeend:decoration/ender_spire_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "enderbloom_grove",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:enderbloom_grove_start_pool",
+      "placement": {
+        "spacing": 36,
+        "separation": 12,
+        "salt": 965235487,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/enderbloom_grove/enderbloom_grove.nbt",
+          "location": "vibeend:enderbloom_grove",
+          "weight": 1,
+          "pool": "vibeend:enderbloom_grove_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "enderkeep_courtyard",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:enderkeep_courtyard_start_pool",
+      "placement": {
+        "spacing": 44,
+        "separation": 25,
+        "salt": 363654741,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/enderkeep_courtyard/enderkeep_courtyard.nbt",
+          "location": "vibeend:enderkeep_courtyard",
+          "weight": 1,
+          "pool": "vibeend:enderkeep_courtyard_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "enderpin_spikes",
+      "category": "decoration",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 4
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:decoration/enderpin_spikes_start_pool",
+      "placement": {
+        "spacing": 31,
+        "separation": 8,
+        "salt": 133287874,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/enderpin_spikes/enderpin_spikes_1.nbt",
+          "location": "vibeend:decoration/enderpin_spikes/enderpin_spikes_1",
+          "weight": 1,
+          "pool": "vibeend:decoration/enderpin_spikes_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/enderpin_spikes/enderpin_spikes_2.nbt",
+          "location": "vibeend:decoration/enderpin_spikes/enderpin_spikes_2",
+          "weight": 1,
+          "pool": "vibeend:decoration/enderpin_spikes_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 2,
+      "jigsaw_links": []
+    },
+    {
+      "id": "enderskog",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:enderskog_start_pool",
+      "placement": {
+        "spacing": 52,
+        "separation": 22,
+        "salt": 525248754,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/enderskog/enderskog.nbt",
+          "location": "vibeend:enderskog",
+          "weight": 1,
+          "pool": "vibeend:enderskog_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "enderwatch_tower",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:enderwatch_tower_start_pool",
+      "placement": {
+        "spacing": 42,
+        "separation": 12,
+        "salt": 336251487,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/enderwatch_tower/enderwatch_tower.nbt",
+          "location": "vibeend:enderwatch_tower",
+          "weight": 1,
+          "pool": "vibeend:enderwatch_tower_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "endscraps",
+      "category": "decoration",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:decoration/endscraps_start_pool",
+      "placement": {
+        "spacing": 37,
+        "separation": 7,
+        "salt": 132487569,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/endscraps/endscraps_1.nbt",
+          "location": "vibeend:decoration/endscraps/endscraps_1",
+          "weight": 1,
+          "pool": "vibeend:decoration/endscraps_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/endscraps/endscraps_2.nbt",
+          "location": "vibeend:decoration/endscraps/endscraps_2",
+          "weight": 1,
+          "pool": "vibeend:decoration/endscraps_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/endscraps/endscraps_3.nbt",
+          "location": "vibeend:decoration/endscraps/endscraps_3",
+          "weight": 1,
+          "pool": "vibeend:decoration/endscraps_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/endscraps/endscraps_4.nbt",
+          "location": "vibeend:decoration/endscraps/endscraps_4",
+          "weight": 1,
+          "pool": "vibeend:decoration/endscraps_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 4,
+      "jigsaw_links": []
+    },
+    {
+      "id": "manuscript_shrine",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:manuscript_shrine_start_pool",
+      "placement": {
+        "spacing": 41,
+        "separation": 27,
+        "salt": 369858747,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/manuscript_shrine/manuscript_shrine.nbt",
+          "location": "vibeend:manuscript_shrine",
+          "weight": 1,
+          "pool": "vibeend:manuscript_shrine_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mega_ship",
+      "category": "mega_ship",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 60
+        },
+        "min_inclusive": {
+          "absolute": 30
+        }
+      },
+      "spawn_overrides": {
+        "monster": {
+          "bounding_box": "piece",
+          "spawns": [
+            {
+              "type": "minecraft:shulker",
+              "maxCount": 3,
+              "minCount": 2,
+              "weight": 10
+            }
+          ]
+        }
+      },
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:mega_ship/mega_ship_start_pool",
+      "placement": {
+        "spacing": 77,
+        "separation": 15,
+        "salt": 151031809,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mega_ship/mega_ship.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship",
+          "weight": 1,
+          "pool": "vibeend:mega_ship/mega_ship_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship/mega_ship_end.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_end",
+          "weight": 1,
+          "pool": "vibeend:mega_ship/side_pool_end",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship/mega_ship_end_side.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_end_side",
+          "weight": 1,
+          "pool": "vibeend:mega_ship/side_pool_side",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship/mega_ship_middle.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_middle",
+          "weight": 1,
+          "pool": "vibeend:mega_ship/side_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 4,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mega_ship_basic",
+      "category": "mega_ship",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 60
+      },
+      "start_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 70
+        },
+        "min_inclusive": {
+          "absolute": 30
+        }
+      },
+      "spawn_overrides": {
+        "monster": {
+          "bounding_box": "piece",
+          "spawns": [
+            {
+              "type": "minecraft:shulker",
+              "maxCount": 3,
+              "minCount": 2,
+              "weight": 10
+            },
+            {
+              "type": "minecraft:enderman",
+              "maxCount": 5,
+              "minCount": 3,
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:mega_ship_basic/mega_ship_basic_start_pool",
+      "placement": {
+        "spacing": 80,
+        "separation": 60,
+        "salt": 665221487,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mega_ship_basic/mega_ship_basic.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_basic",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_basic/mega_ship_basic_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_basic/mega_ship_basic_end.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_basic_end",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_basic/side_pool_end",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_basic/mega_ship_basic_end_side.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_basic_end_side",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_basic/side_pool_side",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_basic/mega_ship_basic_middle.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_basic_middle",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_basic/side_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 4,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mega_ship_crashed",
+      "category": "mega_ship",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {
+        "monster": {
+          "bounding_box": "piece",
+          "spawns": [
+            {
+              "type": "minecraft:shulker",
+              "maxCount": 3,
+              "minCount": 2,
+              "weight": 10
+            }
+          ]
+        }
+      },
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:mega_ship_crashed/mega_ship_crashed_start_pool",
+      "placement": {
+        "spacing": 75,
+        "separation": 46,
+        "salt": 555692123,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mega_ship_crashed/mega_ship_crashed.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed/mega_ship_crashed_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed/mega_ship_crashed_end.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_end",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed/side_pool_end",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed/mega_ship_crashed_end_side.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_end_side",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed/side_pool_side",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed/mega_ship_crashed_middle.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_middle",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed/side_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 4,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mega_ship_crashed_2",
+      "category": "mega_ship",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {
+        "monster": {
+          "bounding_box": "piece",
+          "spawns": [
+            {
+              "type": "minecraft:shulker",
+              "maxCount": 3,
+              "minCount": 2,
+              "weight": 10
+            }
+          ]
+        }
+      },
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:mega_ship_crashed_2/mega_ship_crashed_2_start_pool",
+      "placement": {
+        "spacing": 72,
+        "separation": 48,
+        "salt": 446958557,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mega_ship_crashed_2/mega_ship_crashed_2.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_2",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed_2/mega_ship_crashed_2_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed_2/mega_ship_crashed_2_end.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_2_end",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed_2/side_pool_end",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed_2/mega_ship_crashed_2_end_side.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_2_end_side",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed_2/side_pool_side",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed_2/mega_ship_crashed_2_middle.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_2_middle",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed_2/side_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 4,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mega_ship_crashed_deepslate",
+      "category": "mega_ship",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {
+        "monster": {
+          "bounding_box": "piece",
+          "spawns": [
+            {
+              "type": "minecraft:shulker",
+              "maxCount": 2,
+              "minCount": 1,
+              "weight": 10
+            }
+          ]
+        }
+      },
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:mega_ship_crashed_deepslate/mega_ship_crashed_deepslate_start_pool",
+      "placement": {
+        "spacing": 79,
+        "separation": 52,
+        "salt": 656542184,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mega_ship_crashed_deepslate/mega_ship_crashed_deepslate.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_deepslate",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed_deepslate/mega_ship_crashed_deepslate_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed_deepslate/mega_ship_crashed_deepslate_end.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_deepslate_end",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed_deepslate/side_pool_end",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed_deepslate/mega_ship_crashed_deepslate_end_side.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_deepslate_end_side",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed_deepslate/side_pool_side",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_crashed_deepslate/mega_ship_crashed_deepslate_middle.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_crashed_deepslate_middle",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_crashed_deepslate/side_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 4,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mega_ship_deepslate",
+      "category": "mega_ship",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 60
+      },
+      "start_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 70
+        },
+        "min_inclusive": {
+          "absolute": 30
+        }
+      },
+      "spawn_overrides": {
+        "monster": {
+          "bounding_box": "piece",
+          "spawns": [
+            {
+              "type": "minecraft:shulker",
+              "maxCount": 3,
+              "minCount": 2,
+              "weight": 10
+            },
+            {
+              "type": "minecraft:enderman",
+              "maxCount": 5,
+              "minCount": 3,
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:mega_ship_deepslate/mega_ship_deepslate_start_pool",
+      "placement": {
+        "spacing": 88,
+        "separation": 65,
+        "salt": 998578754,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mega_ship_deepslate/mega_ship_deepslate.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate/mega_ship_deepslate_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate/mega_ship_deepslate_end.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_end",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate/side_pool_end",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate/mega_ship_deepslate_end_side.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_end_side",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate/side_pool_side",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate/mega_ship_deepslate_middle.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_middle",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate/side_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate/mega_ship_deepslate_top.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_top",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate/side_pool_top",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 5,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mega_ship_deepslate_2",
+      "category": "mega_ship",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 50
+      },
+      "start_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 60
+        },
+        "min_inclusive": {
+          "absolute": 30
+        }
+      },
+      "spawn_overrides": {
+        "monster": {
+          "bounding_box": "piece",
+          "spawns": [
+            {
+              "type": "minecraft:shulker",
+              "maxCount": 3,
+              "minCount": 2,
+              "weight": 10
+            },
+            {
+              "type": "minecraft:enderman",
+              "maxCount": 5,
+              "minCount": 3,
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "jigsaw_size": 3,
+      "start_pool": "vibeend:mega_ship_deepslate_2/mega_ship_deepslate_2_start_pool",
+      "placement": {
+        "spacing": 82,
+        "separation": 46,
+        "salt": 669842154,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mega_ship_deepslate_2/mega_ship_deepslate_2.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_2",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_2/mega_ship_deepslate_2_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_2/mega_ship_deepslate_2_end.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_2_end",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_end",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_2/mega_ship_deepslate_2_end_side.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_2_end_side",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_side",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_2/mega_ship_deepslate_2_end_side_2.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_2_end_side_2",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_side_2",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_2/mega_ship_deepslate_2_end_side_3.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_2_end_side_3",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_side_3",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_2/mega_ship_deepslate_2_end_side_4.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_2_end_side_4",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_side_4",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_2/mega_ship_deepslate_2_middle.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_2_middle",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_2/mega_ship_deepslate_2_top.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_2_top",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_2/side_pool_top",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 8,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mega_ship_deepslate_3",
+      "category": "mega_ship",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 60
+        },
+        "min_inclusive": {
+          "absolute": 30
+        }
+      },
+      "spawn_overrides": {
+        "monster": {
+          "bounding_box": "piece",
+          "spawns": [
+            {
+              "type": "minecraft:shulker",
+              "maxCount": 3,
+              "minCount": 2,
+              "weight": 10
+            },
+            {
+              "type": "minecraft:enderman",
+              "maxCount": 5,
+              "minCount": 3,
+              "weight": 2
+            }
+          ]
+        }
+      },
+      "jigsaw_size": 4,
+      "start_pool": "vibeend:mega_ship_deepslate_3/mega_ship_deepslate_3_start_pool",
+      "placement": {
+        "spacing": 84,
+        "separation": 52,
+        "salt": 664521978,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mega_ship_deepslate_3/mega_ship_deepslate_3.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_3",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_3/mega_ship_deepslate_3_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_3/mega_ship_deepslate_3_end.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_3_end",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_end",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_3/mega_ship_deepslate_3_end_side.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_3_end_side",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_side",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_3/mega_ship_deepslate_3_end_side_2.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_3_end_side_2",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_side_2",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_3/mega_ship_deepslate_3_end_side_3.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_3_end_side_3",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_side_3",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_3/mega_ship_deepslate_3_middle.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_3_middle",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/mega_ship_deepslate_3/mega_ship_deepslate_3_top.nbt",
+          "location": "vibeend:v1_21_5_10/mega_ship_deepslate_3_top",
+          "weight": 1,
+          "pool": "vibeend:mega_ship_deepslate_3/side_pool_top",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 7,
+      "jigsaw_links": []
+    },
+    {
+      "id": "monolith",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:monolith_start_pool",
+      "placement": {
+        "spacing": 36,
+        "separation": 21,
+        "salt": 665665241,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/monolith/monolith_1.nbt",
+          "location": "vibeend:monolith/monolith_1",
+          "weight": 1,
+          "pool": "vibeend:monolith_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/monolith/monolith_2.nbt",
+          "location": "vibeend:monolith/monolith_2",
+          "weight": 1,
+          "pool": "vibeend:monolith_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/monolith/monolith_3.nbt",
+          "location": "vibeend:monolith/monolith_3",
+          "weight": 1,
+          "pool": "vibeend:monolith_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 3,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mystical_archway",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:mystical_archway_start_pool",
+      "placement": {
+        "spacing": 44,
+        "separation": 32,
+        "salt": 132652584,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mystical_archway/mystical_archway.nbt",
+          "location": "vibeend:mystical_archway",
+          "weight": 1,
+          "pool": "vibeend:mystical_archway_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "mythic_garden",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:mythic_garden_start_pool",
+      "placement": {
+        "spacing": 38,
+        "separation": 27,
+        "salt": 985747587,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/mythic_garden/mythic_garden.nbt",
+          "location": "vibeend:mythic_garden",
+          "weight": 1,
+          "pool": "vibeend:mythic_garden_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "phantom_citadel",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 24
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:phantom_citadel_start_pool",
+      "placement": {
+        "spacing": 31,
+        "separation": 14,
+        "salt": 132545874,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/phantom_citadel/phantom_citadel.nbt",
+          "location": "vibeend:phantom_citadel",
+          "weight": 1,
+          "pool": "vibeend:phantom_citadel_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    },
+    {
+      "id": "placid_prairie",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 56
+        },
+        "min_inclusive": {
+          "absolute": 8
+        }
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:placid_prairie_start_pool",
+      "placement": {
+        "spacing": 32,
+        "separation": 22,
+        "salt": 985412145,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/placid_prairie/placid_prairie_1.nbt",
+          "location": "vibeend:placid_prairie/placid_prairie_1",
+          "weight": 1,
+          "pool": "vibeend:placid_prairie_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/placid_prairie/placid_prairie_2.nbt",
+          "location": "vibeend:placid_prairie/placid_prairie_2",
+          "weight": 1,
+          "pool": "vibeend:placid_prairie_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 2,
+      "jigsaw_links": []
+    },
+    {
+      "id": "ruined_pillar",
+      "category": "decoration",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "beard_thin",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "absolute": 0
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:decoration/ruined_pillar_start_pool",
+      "placement": {
+        "spacing": 12,
+        "separation": 7,
+        "salt": 322652548,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/ruined_pillar/ruined_pillar_1.nbt",
+          "location": "vibeend:decoration/ruined_pillar/ruined_pillar_1",
+          "weight": 1,
+          "pool": "vibeend:decoration/ruined_pillar_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/ruined_pillar/ruined_pillar_2.nbt",
+          "location": "vibeend:decoration/ruined_pillar/ruined_pillar_2",
+          "weight": 1,
+          "pool": "vibeend:decoration/ruined_pillar_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        },
+        {
+          "file": "nbt/ruined_pillar/ruined_pillar_3.nbt",
+          "location": "vibeend:decoration/ruined_pillar/ruined_pillar_3",
+          "weight": 1,
+          "pool": "vibeend:decoration/ruined_pillar_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 3,
+      "jigsaw_links": []
+    },
+    {
+      "id": "starlight_voyager",
+      "category": "structure",
+      "biomes": "#vibeend:has_structure/end_biomes",
+      "terrain_adaptation": "none",
+      "project_start_to_heightmap": "WORLD_SURFACE_WG",
+      "y_allowance": {
+        "min_y_allowed": 45
+      },
+      "start_height": {
+        "type": "minecraft:uniform",
+        "max_inclusive": {
+          "absolute": 65
+        },
+        "min_inclusive": {
+          "absolute": 20
+        }
+      },
+      "spawn_overrides": {},
+      "jigsaw_size": 1,
+      "start_pool": "vibeend:starlight_voyager_start_pool",
+      "placement": {
+        "spacing": 32,
+        "separation": 17,
+        "salt": 987874585,
+        "min_distance_from_world_origin": 1000
+      },
+      "pieces": [
+        {
+          "file": "nbt/starlight_voyager/starlight_voyager.nbt",
+          "location": "vibeend:starlight_voyager",
+          "weight": 1,
+          "pool": "vibeend:starlight_voyager_start_pool",
+          "element_type": "minecraft:single_pool_element"
+        }
+      ],
+      "piece_count": 1,
+      "jigsaw_links": []
+    }
+  ]
+}
