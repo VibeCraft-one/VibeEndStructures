@@ -3,7 +3,7 @@ plugins {
 }
 
 group = 'ru.vibecraft'
-version = '18'
+version = '19'
 
 repositories {
     mavenCentral()

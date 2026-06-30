@@ -112,7 +112,7 @@ public final class StructureGenerator {
 
         Block surface;
         if ("mega_ship".equals(chosen.category())) {
-            surface = ShipSpawnFinder.findSpawn(world, chunkX, chunkZ, preview, random).orElse(null);
+            surface = ShipSpawnFinder.findSpawn(world, chunkX, chunkZ, random).orElse(null);
         } else {
             int minY = Math.max(chosen.minY(), plugin.getPluginConfig().getMinY());
             surface = EndSurfaceFinder.findSurface(world, chunkX, chunkZ, minY, random).orElse(null);
