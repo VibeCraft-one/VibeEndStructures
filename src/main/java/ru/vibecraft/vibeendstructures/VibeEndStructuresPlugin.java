@@ -3,6 +3,7 @@ package ru.vibecraft.vibeendstructures;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.java.JavaPlugin;
 import ru.vibecraft.vibeendstructures.command.VibeEndCommand;
+import ru.vibecraft.vibeendstructures.dragon.config.DragonConfig;
 import ru.vibecraft.vibeendstructures.generation.ChunkStructureListener;
 import ru.vibecraft.vibeendstructures.generation.GenerationQueue;
 import ru.vibecraft.vibeendstructures.generation.StructureGenerator;
@@ -26,6 +27,7 @@ public final class VibeEndStructuresPlugin extends JavaPlugin {
     private StructureOccupancy occupancy;
     private GenerationQueue generationQueue;
     private LootDatapackInstaller lootInstaller;
+    private DragonConfig dragonConfig;
 
     @Override
     public void onEnable() {
@@ -48,6 +50,9 @@ public final class VibeEndStructuresPlugin extends JavaPlugin {
         generationQueue = new GenerationQueue(this, generator);
         lootInstaller = new LootDatapackInstaller(this);
 
+        dragonConfig = new DragonConfig(getDataFolder(), getLogger());
+        dragonConfig.load();
+
         Bukkit.getPluginManager().registerEvents(new ChunkStructureListener(generator), this);
 
         VibeEndCommand command = new VibeEndCommand(this);
@@ -61,7 +66,7 @@ public final class VibeEndStructuresPlugin extends JavaPlugin {
             lootInstaller.installForConfiguredWorlds(pluginConfig.getWorlds());
         }
 
-        getLogger().info("VibeEndStructures enabled — loaded " + registry.getDefinitions().size() + " structure types.");
+        getLogger().info("VibeEndStructures enabled — loaded " + registry.getDefinitions().size() + " structure types, " + dragonConfig.getDragonDefinitions().size() + " dragon types.");
         getLogger().info("Structures directory: " + registry.getStructuresRoot().getAbsolutePath());
     }
 
@@ -75,6 +80,7 @@ public final class VibeEndStructuresPlugin extends JavaPlugin {
         registry.load();
         jigsawMetadata.load();
         metaRegistry.load();
+        dragonConfig.load();
         if (pluginConfig.isInstallLootDatapack()) {
             lootInstaller.installForConfiguredWorlds(pluginConfig.getWorlds());
         }
@@ -98,5 +104,9 @@ public final class VibeEndStructuresPlugin extends JavaPlugin {
 
     public GenerationQueue getGenerationQueue() {
         return generationQueue;
+    }
+
+    public DragonConfig getDragonConfig() {
+        return dragonConfig;
     }
 }

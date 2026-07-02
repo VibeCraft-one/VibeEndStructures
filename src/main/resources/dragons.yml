@@ -1,0 +1,232 @@
+dragons:
+  ender_dragon:
+    id: "ender_dragon"
+    display-name: "Дракон Края"
+    type: "NORMAL"
+    enabled: true
+    health: 400.0
+    damage: 12.0
+    armor: 0.0
+    knockback-resistance: 1.0
+    follow-range: 100
+    movement-speed: 0.25
+    flying-speed: 0.4
+    abilities:
+      - "DRAGON_BREATH"
+      - "CHARGE"
+      - "SUMMON_ENDERMITE"
+      - "PHASE_SHIFT"
+    phases:
+      - threshold: 1.0
+        abilities:
+          - "CHARGE"
+          - "DRAGON_BREATH"
+      - threshold: 0.6
+        abilities:
+          - "CHARGE"
+          - "DRAGON_BREATH"
+          - "SUMMON_ENDERMITE"
+      - threshold: 0.3
+        abilities:
+          - "CHARGE"
+          - "DRAGON_BREATH"
+          - "SUMMON_ENDERMITE"
+          - "PHASE_SHIFT"
+    egg-drop-chance: 0.15
+    reward-tiers:
+      - min-contribution: 0.01
+        loot-table: "vibedragon:ender_dragon/common"
+        commands: []
+      - min-contribution: 0.15
+        loot-table: "vibedragon:ender_dragon/uncommon"
+        commands: []
+      - min-contribution: 0.35
+        loot-table: "vibedragon:ender_dragon/rare"
+        commands:
+          - "lp user %player% permission set vibedragon.title.enderslayer"
+      - min-contribution: 0.6
+        loot-table: "vibedragon:ender_dragon/epic"
+        commands:
+          - "lp user %player% permission set vibedragon.prefix.enderslayer"
+      - min-contribution: 0.85
+        loot-table: "vibedragon:ender_dragon/legendary"
+        commands:
+          - "lp user %player% permission set vibedragon.title.dragonlord"
+    titles:
+      - "end_slayer"
+      - "dragonlord"
+    prefixes:
+      - "end_slayer"
+      - "dragonlord"
+
+  fire_dragon:
+    id: "fire_dragon"
+    display-name: "Огненный Дракон"
+    type: "FIRE"
+    enabled: true
+    health: 600.0
+    damage: 16.0
+    armor: 4.0
+    knockback-resistance: 1.0
+    follow-range: 120
+    movement-speed: 0.3
+    flying-speed: 0.45
+    abilities:
+      - "FIRE_BREATH"
+      - "LAVA_POOL"
+      - "METEOR_STRIKE"
+      - "FLARE_BURST"
+      - "IGNITE_AREA"
+    phases:
+      - threshold: 1.0
+        abilities:
+          - "FIRE_BREATH"
+          - "LAVA_POOL"
+      - threshold: 0.6
+        abilities:
+          - "FIRE_BREATH"
+          - "LAVA_POOL"
+          - "METEOR_STRIKE"
+      - threshold: 0.3
+        abilities:
+          - "FIRE_BREATH"
+          - "LAVA_POOL"
+          - "METEOR_STRIKE"
+          - "FLARE_BURST"
+          - "IGNITE_AREA"
+    egg-drop-chance: 0.25
+    reward-tiers:
+      - min-contribution: 0.01
+        loot-table: "vibedragon:fire_dragon/common"
+        commands: []
+      - min-contribution: 0.15
+        loot-table: "vibedragon:fire_dragon/uncommon"
+        commands: []
+      - min-contribution: 0.35
+        loot-table: "vibedragon:fire_dragon/rare"
+        commands:
+          - "lp user %player% permission set vibedragon.title.fireslayer"
+      - min-contribution: 0.6
+        loot-table: "vibedragon:fire_dragon/epic"
+        commands:
+          - "lp user %player% permission set vibedragon.prefix.fireslayer"
+      - min-contribution: 0.85
+        loot-table: "vibedragon:fire_dragon/legendary"
+        commands:
+          - "lp user %player% permission set vibedragon.title.pyrolord"
+    titles:
+      - "fire_slayer"
+      - "pyrolord"
+    prefixes:
+      - "fire_slayer"
+      - "pyrolord"
+
+  frost_dragon:
+    id: "frost_dragon"
+    display-name: "Ледяной Дракон"
+    type: "ICE"
+    enabled: true
+    health: 550.0
+    damage: 14.0
+    armor: 6.0
+    knockback-resistance: 1.0
+    follow-range: 110
+    movement-speed: 0.22
+    flying-speed: 0.42
+    abilities:
+      - "ICE_BREATH"
+      - "FROST_NOVA"
+      - "BLIZZARD"
+      - "ICE_SPIKES"
+      - "FREEZE_AREA"
+    phases:
+      - threshold: 1.0
+        abilities:
+          - "ICE_BREATH"
+          - "FROST_NOVA"
+      - threshold: 0.6
+        abilities:
+          - "ICE_BREATH"
+          - "FROST_NOVA"
+          - "BLIZZARD"
+      - threshold: 0.3
+        abilities:
+          - "ICE_BREATH"
+          - "FROST_NOVA"
+          - "BLIZZARD"
+          - "ICE_SPIKES"
+          - "FREEZE_AREA"
+    egg-drop-chance: 0.3
+    reward-tiers:
+      - min-contribution: 0.01
+        loot-table: "vibedragon:frost_dragon/common"
+        commands: []
+      - min-contribution: 0.15
+        loot-table: "vibedragon:frost_dragon/uncommon"
+        commands: []
+      - min-contribution: 0.35
+        loot-table: "vibedragon:frost_dragon/rare"
+        commands:
+          - "lp user %player% permission set vibedragon.title.frostslayer"
+      - min-contribution: 0.6
+        loot-table: "vibedragon:frost_dragon/epic"
+        commands:
+          - "lp user %player% permission set vibedragon.prefix.frostslayer"
+      - min-contribution: 0.85
+        loot-table: "vibedragon:frost_dragon/legendary"
+        commands:
+          - "lp user %player% permission set vibedragon.title.frostlord"
+    titles:
+      - "frost_slayer"
+      - "frostlord"
+    prefixes:
+      - "frost_slayer"
+      - "frostlord"
+
+arenas:
+  ender_arena:
+    id: "ender_arena"
+    name: "Арена Дракона Края"
+    dragon-type: "ender_dragon"
+    center-x: 0
+    center-z: 0
+    radius: 120
+    height: 80
+    cooldown-hours: 24
+    spawn-structure: "dragon_arena_end"
+    enabled: true
+
+  fire_arena:
+    id: "fire_arena"
+    name: "Огненная Арена"
+    dragon-type: "fire_dragon"
+    center-x: 2000
+    center-z: 2000
+    radius: 140
+    height: 90
+    cooldown-hours: 36
+    spawn-structure: "dragon_arena_fire"
+    enabled: true
+
+  frost_arena:
+    id: "frost_arena"
+    name: "Ледяная Арена"
+    dragon-type: "frost_dragon"
+    center-x: -2000
+    center-z: -2000
+    radius: 130
+    height: 85
+    cooldown-hours: 36
+    spawn-structure: "dragon_arena_frost"
+    enabled: true
+
+general:
+  min-distance-from-origin: 1000
+  contribution-decay-per-second: 0.001
+  min-contribution-for-reward: 0.01
+  boss-bar-color: "PURPLE"
+  boss-bar-style: "PROGRESS"
+  announce-spawn: true
+  announce-death: true
+  death-message: "&d&lДракон %dragon% &r&7побежден! Топ-урон: %top_player% (%top_dmg%)"
+  spawn-message: "&d&lДракон %dragon% &r&7пробудился на арене &b%arena%&7!"
