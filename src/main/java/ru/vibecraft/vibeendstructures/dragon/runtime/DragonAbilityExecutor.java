@@ -1,24 +1,32 @@
 package ru.vibecraft.vibeendstructures.dragon.runtime;
 
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.Particle;
 import org.bukkit.Sound;
 import org.bukkit.SoundCategory;
 import org.bukkit.World;
+import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 import org.bukkit.entity.EnderDragon;
 import org.bukkit.entity.Endermite;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
-import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scheduler.BukkitTask;
 import org.bukkit.util.Vector;
 import ru.vibecraft.vibeendstructures.VibeEndStructuresPlugin;
 import ru.vibecraft.vibeendstructures.dragon.model.DragonAbility;
 import ru.vibecraft.vibeendstructures.dragon.model.DragonArena;
 import ru.vibecraft.vibeendstructures.dragon.model.DragonDefinition;
+import ru.vibecraft.vibeendstructures.dragon.model.DragonType;
 
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.Deque;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -27,9 +35,11 @@ import java.util.concurrent.ConcurrentHashMap;
 public final class DragonAbilityExecutor {
 
     private static final long DEFAULT_COOLDOWN_MILLIS = 8_000L;
+    private static final long PRESSURE_WINDOW_MILLIS = 12_000L;
 
     private final VibeEndStructuresPlugin plugin;
     private final Map<String, Long> cooldowns = new ConcurrentHashMap<>();
+    private final Map<UUID, Deque<HitRecord>> recentHits = new ConcurrentHashMap<>();
 
     public DragonAbilityExecutor(VibeEndStructuresPlugin plugin) {
         this.plugin = plugin;
@@ -39,14 +49,23 @@ public final class DragonAbilityExecutor {
         if (abilities.isEmpty()) {
             return;
         }
+        List<DragonAbility> effectiveAbilities = abilities;
+        double healthPercent = Math.max(0.0, Math.min(1.0, dragon.getHealth() / definition.health()));
+        if (healthPercent <= 0.3
+                && (definition.type() == DragonType.FIRE || definition.type() == DragonType.ICE)
+                && !abilities.contains(DragonAbility.METEOR_STRIKE)) {
+            effectiveAbilities = new ArrayList<>(abilities);
+            effectiveAbilities.add(DragonAbility.METEOR_STRIKE);
+        }
         long now = System.currentTimeMillis();
-        for (DragonAbility ability : abilities) {
+        trimOldHits(dragon.getUniqueId(), now);
+        for (DragonAbility ability : effectiveAbilities) {
             String key = dragon.getUniqueId() + ":" + ability.name();
             long readyAt = cooldowns.getOrDefault(key, 0L);
             if (readyAt > now) {
                 continue;
             }
-            execute(dragon, arena, ability);
+            execute(dragon, arena, definition, ability);
             cooldowns.put(key, now + cooldownFor(ability));
             return;
         }
@@ -55,9 +74,20 @@ public final class DragonAbilityExecutor {
     public void clear(UUID dragonUuid) {
         String prefix = dragonUuid + ":";
         cooldowns.keySet().removeIf(key -> key.startsWith(prefix));
+        recentHits.remove(dragonUuid);
     }
 
-    private void execute(EnderDragon dragon, DragonArena arena, DragonAbility ability) {
+    public void recordHit(UUID dragonUuid, UUID attackerUuid, double damage) {
+        if (dragonUuid == null || attackerUuid == null || damage <= 0) {
+            return;
+        }
+        Deque<HitRecord> queue = recentHits.computeIfAbsent(dragonUuid, ignored -> new ArrayDeque<>());
+        long now = System.currentTimeMillis();
+        queue.addLast(new HitRecord(now, attackerUuid, damage));
+        trimOldHits(dragonUuid, now);
+    }
+
+    private void execute(EnderDragon dragon, DragonArena arena, DragonDefinition definition, DragonAbility ability) {
         switch (ability) {
             case CHARGE -> charge(dragon, arena);
             case DRAGON_BREATH -> breath(dragon, arena, Particle.DRAGON_BREATH, 5.0, null);
@@ -65,6 +95,7 @@ public final class DragonAbilityExecutor {
                     player.setFireTicks(Math.max(player.getFireTicks(), 80)));
             case ICE_BREATH -> breath(dragon, arena, Particle.SNOWFLAKE, 4.0, player ->
                     player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 80, 1, true, true)));
+            case METEOR_STRIKE -> meteorStrike(dragon, arena, definition);
             case SUMMON_ENDERMITE -> summonEndermites(dragon);
             case FROST_NOVA -> frostNova(dragon, arena);
             default -> debugNoop(ability);
@@ -90,7 +121,7 @@ public final class DragonAbilityExecutor {
         List<Player> targets = nearbyPlayers(dragon, arena.radius()).stream()
                 .filter(player -> player.getLocation().distanceSquared(origin) <= 35 * 35)
                 .toList();
-        world.spawnParticle(particle, origin, 80, 5.0, 2.0, 5.0, 0.02);
+        DragonParticles.spawn(plugin, world, particle, origin, 80, 5.0, 2.0, 5.0, 0.02);
         world.playSound(origin, Sound.ENTITY_ENDER_DRAGON_SHOOT, SoundCategory.HOSTILE, 2.0f, 1.0f);
         for (Player player : targets) {
             player.damage(damage, dragon);
@@ -112,16 +143,253 @@ public final class DragonAbilityExecutor {
                 mite.addScoreboardTag("vibedragon:minion");
             });
         }
-        world.spawnParticle(Particle.PORTAL, base, 80, 3.0, 1.0, 3.0, 0.2);
+        DragonParticles.spawn(plugin, world, Particle.PORTAL, base, 80, 3.0, 1.0, 3.0, 0.2);
     }
 
     private void frostNova(EnderDragon dragon, DragonArena arena) {
         Location origin = dragon.getLocation();
-        dragon.getWorld().spawnParticle(Particle.SNOWFLAKE, origin, 140, 10.0, 2.5, 10.0, 0.03);
+        DragonParticles.spawn(plugin, dragon.getWorld(), Particle.SNOWFLAKE, origin, 140, 10.0, 2.5, 10.0, 0.03);
         dragon.getWorld().playSound(origin, Sound.BLOCK_GLASS_BREAK, SoundCategory.HOSTILE, 2.0f, 0.6f);
         for (Player player : nearbyPlayers(dragon, Math.min(arena.radius(), 18))) {
             player.damage(5.0, dragon);
             player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 120, 2, true, true));
+        }
+    }
+
+    private void meteorStrike(EnderDragon dragon, DragonArena arena, DragonDefinition definition) {
+        if (definition.type() != DragonType.FIRE && definition.type() != DragonType.ICE) {
+            return;
+        }
+        double healthPercent = Math.max(0.0, Math.min(1.0, dragon.getHealth() / definition.health()));
+        if (healthPercent > 0.3) {
+            return;
+        }
+
+        int meteorCount = meteorCount(dragon.getUniqueId());
+        for (int i = 0; i < meteorCount; i++) {
+            Location target = randomMeteorTarget(dragon.getWorld(), arena);
+            if (target == null) {
+                continue;
+            }
+            launchMeteor(dragon, target, definition.type(), i * 6L);
+        }
+    }
+
+    private int meteorCount(UUID dragonUuid) {
+        long now = System.currentTimeMillis();
+        trimOldHits(dragonUuid, now);
+        Deque<HitRecord> queue = recentHits.get(dragonUuid);
+        if (queue == null || queue.isEmpty()) {
+            return 2;
+        }
+        int hits = queue.size();
+        double damage = 0.0;
+        Map<UUID, Integer> unique = new HashMap<>();
+        for (HitRecord hit : queue) {
+            damage += hit.damage();
+            unique.put(hit.attackerUuid(), 1);
+        }
+        double pressure = (hits / 18.0) + (unique.size() / 6.0) + (damage / 220.0);
+        int scaled = 2 + (int) Math.round(Math.min(1.5, pressure) * 3.0);
+        return Math.max(2, Math.min(6, scaled));
+    }
+
+    private void launchMeteor(EnderDragon dragon, Location target, DragonType type, long delayTicks) {
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            if (!dragon.isValid() || dragon.isDead()) {
+                return;
+            }
+            World world = dragon.getWorld();
+            MeteorSite site = resolveMeteorSite(world, target);
+            Location surfaceCenter = site.cubeCenterAtSurface();
+            Location buryCenter = site.cubeCenterAtY(Math.max(world.getMinHeight() + 1.5, 1.5));
+            Location start = meteorStart(surfaceCenter, dragon.getLocation());
+            Material block = type == DragonType.FIRE ? Material.MAGMA_BLOCK : Material.ICE;
+            DragonMeteorHolograms.MeteorVisual visual = DragonMeteorHolograms.spawnCube(plugin, start, block);
+            if (visual == null) {
+                applyMeteorImpact(world, site.surfaceImpact(), dragon, type);
+                return;
+            }
+
+            int approachSteps = 56;
+            int burySteps = Math.max(32, (int) Math.ceil((surfaceCenter.getY() - buryCenter.getY()) / 0.4));
+
+            final boolean[] impacted = {false};
+            final boolean[] cleaned = {false};
+            final int[] tick = {0};
+            final BukkitTask[] taskRef = new BukkitTask[1];
+
+            Runnable cleanup = () -> {
+                if (cleaned[0]) {
+                    return;
+                }
+                cleaned[0] = true;
+                if (taskRef[0] != null) {
+                    taskRef[0].cancel();
+                }
+                DragonMeteorHolograms.remove(visual);
+            };
+
+            taskRef[0] = plugin.getServer().getScheduler().runTaskTimer(plugin, () -> {
+                tick[0]++;
+                if (tick[0] <= approachSteps) {
+                    double progress = tick[0] / (double) approachSteps;
+                    Location current = lerpLocation(start, surfaceCenter, easeInCubic(progress));
+                    DragonMeteorHolograms.move(visual, current);
+                    if (tick[0] % 2 == 0) {
+                        spawnMeteorTrail(world, current, type);
+                    }
+                    return;
+                }
+
+                if (!impacted[0]) {
+                    impacted[0] = true;
+                    DragonMeteorHolograms.move(visual, surfaceCenter.clone());
+                    applyMeteorImpact(world, site.surfaceImpact(), dragon, type);
+                }
+
+                int buryTick = tick[0] - approachSteps;
+                if (buryTick <= burySteps) {
+                    double progress = buryTick / (double) burySteps;
+                    Location current = lerpLocation(surfaceCenter, buryCenter, easeInQuad(progress));
+                    DragonMeteorHolograms.move(visual, current);
+                    if (buryTick % 2 == 0) {
+                        spawnMeteorTrail(world, current, type);
+                    }
+                    if (buryTick == burySteps) {
+                        cleanup.run();
+                    }
+                    return;
+                }
+
+                cleanup.run();
+            }, 0L, 1L);
+
+            long safetyTicks = approachSteps + burySteps + 20L;
+            plugin.getServer().getScheduler().runTaskLater(plugin, cleanup, safetyTicks);
+        }, delayTicks);
+    }
+
+    private void spawnMeteorTrail(World world, Location current, DragonType type) {
+        Particle trail = type == DragonType.FIRE ? Particle.FLAME : Particle.SNOWFLAKE;
+        DragonParticles.spawn(plugin, world, trail, current.clone(), 16, 1.0, 1.0, 1.0, 0.03);
+        DragonParticles.spawn(plugin, world, Particle.SMOKE, current.clone(), 8, 0.6, 0.6, 0.6, 0.02);
+        if (type == DragonType.FIRE) {
+            DragonParticles.spawn(plugin, world, Particle.LAVA, current.clone(), 3, 0.4, 0.4, 0.4, 0.0);
+        } else {
+            DragonParticles.spawn(plugin, world, Particle.CLOUD, current.clone(), 5, 0.5, 0.5, 0.5, 0.01);
+        }
+    }
+
+    private MeteorSite resolveMeteorSite(World world, Location target) {
+        int blockX = target.getBlockX();
+        int blockZ = target.getBlockZ();
+        Block floor = world.getHighestBlockAt(blockX, blockZ);
+        return new MeteorSite(world, blockX, blockZ, floor);
+    }
+
+    private Location meteorStart(Location surfaceCenter, Location dragonLocation) {
+        Vector away = surfaceCenter.toVector().subtract(dragonLocation.toVector());
+        if (away.lengthSquared() < 0.01) {
+            away = new Vector(1, 0, 1);
+        }
+        Vector horizontal = away.clone().setY(0);
+        if (horizontal.lengthSquared() < 0.01) {
+            horizontal = new Vector(1, 0, 0);
+        }
+        horizontal.normalize().multiply(24.0);
+        Vector side = new Vector(-horizontal.getZ(), 0, horizontal.getX()).normalize().multiply(16.0);
+        return surfaceCenter.clone().add(horizontal).add(side).add(0, 30.0, 0);
+    }
+
+    private void applyMeteorImpact(World world, Location target, EnderDragon dragon, DragonType type) {
+        DragonParticles.spawn(plugin, world, Particle.EXPLOSION_EMITTER, target, 1);
+        DragonParticles.spawn(plugin, world, Particle.END_ROD, target, 60, 2.0, 1.0, 2.0, 0.07);
+        world.playSound(target, Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, 2.8f, 0.8f);
+
+        if (type == DragonType.FIRE) {
+            applyFireImpact(world, target, dragon);
+            return;
+        }
+        applyIceImpact(world, target, dragon);
+    }
+
+    private void applyFireImpact(World world, Location target, EnderDragon dragon) {
+        List<Block> fireBlocks = new ArrayList<>();
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                Block floor = world.getHighestBlockAt(target.getBlockX() + dx, target.getBlockZ() + dz);
+                Block above = floor.getLocation().add(0, 1, 0).getBlock();
+                if (above.getType().isAir()) {
+                    above.setType(Material.FIRE, false);
+                    fireBlocks.add(above);
+                }
+            }
+        }
+        for (Player player : world.getPlayers()) {
+            if (player.getLocation().distanceSquared(target) <= 8 * 8) {
+                player.setFireTicks(Math.max(player.getFireTicks(), 120));
+                player.damage(4.0, dragon);
+            }
+        }
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            for (Block fire : fireBlocks) {
+                if (fire.getType() == Material.FIRE) {
+                    fire.setType(Material.AIR, false);
+                }
+            }
+        }, 20L * 7);
+    }
+
+    private void applyIceImpact(World world, Location target, EnderDragon dragon) {
+        List<BlockSwap> swaps = new ArrayList<>();
+        for (int dx = -2; dx <= 2; dx++) {
+            for (int dz = -2; dz <= 2; dz++) {
+                Block floor = world.getHighestBlockAt(target.getBlockX() + dx, target.getBlockZ() + dz);
+                Material original = floor.getType();
+                if (!original.isAir() && original != Material.BEDROCK && original != Material.END_PORTAL) {
+                    swaps.add(new BlockSwap(floor, floor.getBlockData().clone()));
+                    floor.setType(Material.ICE, false);
+                }
+            }
+        }
+        for (Player player : world.getPlayers()) {
+            if (player.getLocation().distanceSquared(target) <= 8 * 8) {
+                player.addPotionEffect(new PotionEffect(PotionEffectType.SLOWNESS, 20 * 7, 2, true, true));
+                player.damage(3.0, dragon);
+            }
+        }
+        plugin.getServer().getScheduler().runTaskLater(plugin, () -> {
+            for (BlockSwap swap : swaps) {
+                swap.block().setBlockData(swap.original(), false);
+            }
+        }, 20L * 7);
+    }
+
+    private Location randomMeteorTarget(World world, DragonArena arena) {
+        for (int attempt = 0; attempt < 30; attempt++) {
+            double angle = Math.random() * Math.PI * 2.0;
+            double distance = 6.0 + Math.random() * Math.max(10.0, arena.radius() - 8.0);
+            int x = arena.centerX() + (int) Math.round(Math.cos(angle) * distance);
+            int z = arena.centerZ() + (int) Math.round(Math.sin(angle) * distance);
+            Block floor = world.getHighestBlockAt(x, z);
+            if (floor.getType() != Material.BEDROCK && !floor.getType().isAir()) {
+                return floor.getLocation().add(0.5, 1.0, 0.5);
+            }
+        }
+        return new Location(world, arena.centerX() + 0.5, arena.height(), arena.centerZ() + 0.5);
+    }
+
+    private void trimOldHits(UUID dragonUuid, long now) {
+        Deque<HitRecord> queue = recentHits.get(dragonUuid);
+        if (queue == null) {
+            return;
+        }
+        while (!queue.isEmpty() && now - queue.peekFirst().atMillis() > PRESSURE_WINDOW_MILLIS) {
+            queue.pollFirst();
+        }
+        if (queue.isEmpty()) {
+            recentHits.remove(dragonUuid);
         }
     }
 
@@ -146,6 +414,7 @@ public final class DragonAbilityExecutor {
             case DRAGON_BREATH, FIRE_BREATH, ICE_BREATH -> 9_000L;
             case SUMMON_ENDERMITE -> 18_000L;
             case FROST_NOVA -> 14_000L;
+            case METEOR_STRIKE -> 12_000L;
             default -> DEFAULT_COOLDOWN_MILLIS;
         };
     }
@@ -158,5 +427,43 @@ public final class DragonAbilityExecutor {
 
     private interface PlayerEffect {
         void apply(Player player);
+    }
+
+    private static Location lerpLocation(Location from, Location to, double t) {
+        double clamped = Math.max(0.0, Math.min(1.0, t));
+        double x = from.getX() + (to.getX() - from.getX()) * clamped;
+        double y = from.getY() + (to.getY() - from.getY()) * clamped;
+        double z = from.getZ() + (to.getZ() - from.getZ()) * clamped;
+        return new Location(from.getWorld(), x, y, z);
+    }
+
+    private static double easeInCubic(double t) {
+        double clamped = Math.max(0.0, Math.min(1.0, t));
+        return clamped * clamped * clamped;
+    }
+
+    private static double easeInQuad(double t) {
+        double clamped = Math.max(0.0, Math.min(1.0, t));
+        return clamped * clamped;
+    }
+
+    private record MeteorSite(World world, int blockX, int blockZ, Block floor) {
+        private Location surfaceImpact() {
+            return new Location(world, blockX + 0.5, floor.getY() + 1.0, blockZ + 0.5);
+        }
+
+        private Location cubeCenterAtSurface() {
+            return new Location(world, blockX + 0.5, floor.getY() + 2.5, blockZ + 0.5);
+        }
+
+        private Location cubeCenterAtY(double centerY) {
+            return new Location(world, blockX + 0.5, centerY, blockZ + 0.5);
+        }
+    }
+
+    private record HitRecord(long atMillis, UUID attackerUuid, double damage) {
+    }
+
+    private record BlockSwap(Block block, BlockData original) {
     }
 }

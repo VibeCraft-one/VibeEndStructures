@@ -5,6 +5,9 @@ api-version: '1.21'
 description: ''
 authors: [godblessa]
 
+softdepend:
+  - FancyHolograms
+
 commands:
   vibeend:
     description: ''

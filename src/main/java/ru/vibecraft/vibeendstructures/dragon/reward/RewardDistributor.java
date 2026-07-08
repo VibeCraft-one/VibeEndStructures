@@ -39,13 +39,13 @@ public final class RewardDistributor {
         this.eggManager = eggManager;
     }
 
-    public void distribute(ContributionSnapshot snapshot, DragonDefinition definition, DragonArena arena, World world, double minContribution, boolean eggDropEligible) {
+    public void distribute(ContributionSnapshot snapshot, DragonDefinition definition, DragonArena arena, World world, double minContribution, boolean eggDropEligible, boolean scheduledSpawn) {
         if (world == null || arena == null) {
             return;
         }
         if (snapshot.results().isEmpty()) {
             scatterDefaultLoot(world, arena, definition);
-            tryDropBattleEgg(world, arena, definition, eggDropEligible, null);
+            tryDropBattleEgg(world, arena, definition, eggDropEligible, scheduledSpawn, null);
             return;
         }
         ContributionResult top = snapshot.results().getFirst();
@@ -59,7 +59,8 @@ public final class RewardDistributor {
                 continue;
             }
             titleManager.executeRewardCommands(result.playerUuid(), result.playerName(), tier);
-            scatterLoot(world, arena, rewardLoot(definition, tier, result.contribution()), scatterCount(tier));
+            scatterLoot(world, arena, rewardLoot(definition, tier, result.contribution()), scatterCount(definition, tier));
+            scatterExtraLoot(world, arena, definition.type(), tierName(tier));
             rewardedAny = true;
             Player player = Bukkit.getPlayer(result.playerUuid());
             if (player != null && player.isOnline()) {
@@ -70,7 +71,7 @@ public final class RewardDistributor {
             scatterDefaultLoot(world, arena, definition);
         }
         Player topPlayer = Bukkit.getPlayer(top.playerUuid());
-        tryDropBattleEgg(world, arena, definition, eggDropEligible, topPlayer);
+        tryDropBattleEgg(world, arena, definition, eggDropEligible, scheduledSpawn, topPlayer);
     }
 
     public boolean rewardManually(Player player, DragonDefinition definition, String tierName) {
@@ -210,19 +211,16 @@ public final class RewardDistributor {
         Component rarity = Component.text("Редкость: ", NamedTextColor.DARK_GRAY)
                 .append(Component.text(tierLabel(tierName), tierColor(tierName)))
                 .decoration(TextDecoration.ITALIC, false);
-        Component hint = Component.text("Разбросан по острову после победы над драконом.", NamedTextColor.DARK_PURPLE)
-                .decoration(TextDecoration.ITALIC, false);
         if (contribution >= 0) {
             return List.of(
                     trophy,
                     rarity,
                     Component.text("Вклад: ", NamedTextColor.DARK_GRAY)
                             .append(Component.text(percent(contribution), NamedTextColor.GRAY))
-                            .decoration(TextDecoration.ITALIC, false),
-                    hint
+                            .decoration(TextDecoration.ITALIC, false)
             );
         }
-        return List.of(trophy, rarity, hint);
+        return List.of(trophy, rarity);
     }
 
     private TextColor tierColor(String tierName) {
@@ -254,8 +252,12 @@ public final class RewardDistributor {
         };
     }
 
-    private int scatterCount(RewardTier tier) {
-        return switch (tierName(tier)) {
+    private int scatterCount(DragonDefinition definition, RewardTier tier) {
+        String tierName = tierName(tier);
+        if (definition.type() == DragonType.FIRE && "legendary".equals(tierName)) {
+            return 1;
+        }
+        return switch (tierName) {
             case "legendary" -> 2;
             case "epic" -> 4;
             case "rare" -> 6;
@@ -270,27 +272,70 @@ public final class RewardDistributor {
         RewardTier rare = tierByName(definition, "rare").orElse(null);
         if (common != null) {
             scatterLoot(world, arena, rewardLoot(definition, common, -1), 12);
+            scatterExtraLoot(world, arena, definition.type(), "common");
         }
         if (uncommon != null) {
             scatterLoot(world, arena, rewardLoot(definition, uncommon, -1), 6);
+            scatterExtraLoot(world, arena, definition.type(), "uncommon");
         }
         if (rare != null) {
             scatterLoot(world, arena, rewardLoot(definition, rare, -1), 2);
+            scatterExtraLoot(world, arena, definition.type(), "rare");
         }
         plugin.getLogger().info("Dropped fallback dragon loot for " + definition.id() + " at arena " + arena.id());
     }
 
-    private void tryDropBattleEgg(World world, DragonArena arena, DragonDefinition definition, boolean eggDropEligible, Player notifyPlayer) {
+    private void tryDropBattleEgg(World world, DragonArena arena, DragonDefinition definition, boolean eggDropEligible, boolean scheduledSpawn, Player notifyPlayer) {
         if (!eggDropEligible) {
             plugin.getLogger().info("Dragon egg skipped for " + definition.id() + ": dragon was summoned by egg");
             return;
         }
-        boolean eggDropped = eggManager.tryDropEgg(world, arena, definition.eggDropChance());
+        double chance = scheduledSpawn ? scheduledEggDropChance() : definition.eggDropChance();
+        boolean eggDropped = eggManager.tryDropEgg(world, arena, chance);
         plugin.getLogger().info("Dragon egg roll for " + definition.id() + " at " + arena.id()
-                + ": chance=" + definition.eggDropChance() + ", dropped=" + eggDropped);
-        if (eggDropped && notifyPlayer != null && notifyPlayer.isOnline()) {
-            notifyPlayer.sendMessage(Component.text("Яйцо дракона падает где-то на острове."));
+                + ": chance=" + chance + ", scheduled=" + scheduledSpawn + ", dropped=" + eggDropped);
+    }
+
+    private double scheduledEggDropChance() {
+        if (plugin instanceof ru.vibecraft.vibeendstructures.VibeEndStructuresPlugin vibePlugin) {
+            return vibePlugin.getDragonConfig().getGeneralConfig().scheduledEggDropChance();
         }
+        return 0.08;
+    }
+
+    private void scatterExtraLoot(World world, DragonArena arena, DragonType type, String tierName) {
+        int attempts = switch (tierName) {
+            case "legendary", "epic" -> 2;
+            case "rare" -> 1;
+            default -> 0;
+        };
+        for (int i = 0; i < attempts; i++) {
+            ItemStack extra = randomExtraLoot(type);
+            scatterLoot(world, arena, extra, 1);
+        }
+    }
+
+    private ItemStack randomExtraLoot(DragonType type) {
+        return switch (type) {
+            case FIRE -> switch (random.nextInt(4)) {
+                case 0 -> new ItemStack(Material.BLAZE_POWDER, 8);
+                case 1 -> new ItemStack(Material.MAGMA_CREAM, 4);
+                case 2 -> new ItemStack(Material.GOLD_INGOT, 2);
+                default -> new ItemStack(Material.COAL, 12);
+            };
+            case ICE -> switch (random.nextInt(4)) {
+                case 0 -> new ItemStack(Material.SNOWBALL, 16);
+                case 1 -> new ItemStack(Material.PACKED_ICE, 3);
+                case 2 -> new ItemStack(Material.PRISMARINE_CRYSTALS, 3);
+                default -> new ItemStack(Material.LAPIS_LAZULI, 4);
+            };
+            default -> switch (random.nextInt(4)) {
+                case 0 -> new ItemStack(Material.ENDER_PEARL, 4);
+                case 1 -> new ItemStack(Material.EXPERIENCE_BOTTLE, 6);
+                case 2 -> new ItemStack(Material.OBSIDIAN, 3);
+                default -> new ItemStack(Material.CHORUS_FRUIT, 4);
+            };
+        };
     }
 
     private void scatterLoot(World world, DragonArena arena, ItemStack template, int count) {

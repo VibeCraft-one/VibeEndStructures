@@ -120,8 +120,8 @@ public final class DragonPhaseController {
 
     private void announcePhaseChange(EnderDragon dragon, DragonArena arena, DragonDefinition definition, String phaseKey) {
         Location location = dragon.getLocation();
-        location.getWorld().spawnParticle(Particle.DRAGON_BREATH, location.clone().add(0, 2.5, 0), 120, 6.0, 2.5, 6.0, 0.08);
-        location.getWorld().spawnParticle(Particle.END_ROD, location.clone().add(0, 4.0, 0), 40, 2.5, 2.0, 2.5, 0.06);
+        DragonParticles.spawn(plugin, location.getWorld(), Particle.DRAGON_BREATH, location.clone().add(0, 2.5, 0), 120, 6.0, 2.5, 6.0, 0.08);
+        DragonParticles.spawn(plugin, location.getWorld(), Particle.END_ROD, location.clone().add(0, 4.0, 0), 40, 2.5, 2.0, 2.5, 0.06);
         location.getWorld().playSound(location, Sound.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 3.0f, 0.8f);
         Component message = Component.text(definition.displayName() + ": " + phaseLabel(phaseKey));
         double radiusSquared = arena.radius() * arena.radius();
@@ -145,9 +145,19 @@ public final class DragonPhaseController {
     }
 
     private void hideVanillaBossBar(EnderDragon dragon) {
-        if (dragon.getWorld().getEnderDragonBattle() != null) {
-            dragon.getWorld().getEnderDragonBattle().getBossBar().removeAll();
+        var battle = dragon.getWorld().getEnderDragonBattle();
+        if (battle == null) {
+            return;
         }
+        if (battle.getBossBar() != null) {
+            battle.getBossBar().removeAll();
+            battle.getBossBar().setVisible(false);
+        }
+        // Abort any vanilla crystal respawn that may have been started externally.
+        if (battle.getRespawnPhase() != org.bukkit.boss.DragonBattle.RespawnPhase.NONE) {
+            battle.setRespawnPhase(org.bukkit.boss.DragonBattle.RespawnPhase.NONE);
+        }
+        battle.setPreviouslyKilled(true);
     }
 
     private static final class ActiveDragon {

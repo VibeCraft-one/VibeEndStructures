@@ -54,6 +54,7 @@ public final class VibeDragonCommand implements CommandExecutor, TabCompleter {
             case "seed" -> handleSeed(sender);
             case "contribute", "contribution" -> handleContribute(sender, args);
             case "reward" -> handleReward(sender, args);
+            case "egg" -> handleEgg(sender, args);
             case "reload" -> {
                 plugin.reload();
                 sender.sendMessage(Component.text("VibeDragon конфиг перезагружен.", NamedTextColor.GREEN));
@@ -276,6 +277,34 @@ public final class VibeDragonCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(Component.text(rewarded ? "Награда выдана." : "Награда не найдена.", rewarded ? NamedTextColor.GREEN : NamedTextColor.RED));
     }
 
+    private void handleEgg(CommandSender sender, String[] args) {
+        if (!sender.hasPermission("vibedragon.admin")) {
+            sender.sendMessage(Component.text("Нет прав. Нужно: vibedragon.admin", NamedTextColor.RED));
+            return;
+        }
+        if (args.length < 2 || !args[1].equalsIgnoreCase("force")) {
+            sender.sendMessage(Component.text("Использование: /vibedragon egg force [arena]", NamedTextColor.YELLOW));
+            return;
+        }
+        String arenaId = args.length >= 3 ? args[2].toLowerCase() : defaultArenaId();
+        if (arenaId == null) {
+            sender.sendMessage(Component.text("Арены не найдены.", NamedTextColor.RED));
+            return;
+        }
+        DragonArena arena = plugin.getDragonConfig().getArena(arenaId);
+        if (arena == null) {
+            sender.sendMessage(Component.text("Арена не найдена: " + arenaId, NamedTextColor.RED));
+            return;
+        }
+        World world = plugin.getDragonFightService().resolveDragonWorld().orElse(null);
+        if (world == null) {
+            sender.sendMessage(Component.text("End-мир не найден.", NamedTextColor.RED));
+            return;
+        }
+        plugin.getDragonEggManager().forceDropEgg(world, arena);
+        sender.sendMessage(Component.text("Принудительный спавн яйца запущен на арене " + arena.id() + ".", NamedTextColor.GREEN));
+    }
+
     private String defaultArenaId() {
         return plugin.getDragonConfig().getArenas().keySet().stream().sorted().findFirst().orElse(null);
     }
@@ -292,6 +321,7 @@ public final class VibeDragonCommand implements CommandExecutor, TabCompleter {
         sender.sendMessage(Component.text("/vibedragon seed", NamedTextColor.GRAY));
         sender.sendMessage(Component.text("/vibedragon contribute [arena]", NamedTextColor.GRAY));
         sender.sendMessage(Component.text("/vibedragon reward <player> <type> [tier]", NamedTextColor.GRAY));
+        sender.sendMessage(Component.text("/vibedragon egg force [arena]", NamedTextColor.GRAY));
         sender.sendMessage(Component.text("/vibedragon reload", NamedTextColor.GRAY));
     }
 
@@ -301,7 +331,13 @@ public final class VibeDragonCommand implements CommandExecutor, TabCompleter {
             return List.of();
         }
         if (args.length == 1) {
-            return filter(List.of("spawn", "despawn", "list", "arena", "cooldown", "wipe", "seed", "contribute", "reward", "reload"), args[0]);
+            return filter(List.of("spawn", "despawn", "list", "arena", "cooldown", "wipe", "seed", "contribute", "reward", "egg", "reload"), args[0]);
+        }
+        if (args.length == 2 && args[0].equalsIgnoreCase("egg")) {
+            return filter(List.of("force"), args[1]);
+        }
+        if (args.length == 3 && args[0].equalsIgnoreCase("egg") && args[1].equalsIgnoreCase("force")) {
+            return filter(plugin.getDragonConfig().getArenas().keySet().stream().sorted().toList(), args[2]);
         }
         if (args.length == 2 && args[0].equalsIgnoreCase("wipe")) {
             return filter(List.of("start", "status", "open"), args[1]);

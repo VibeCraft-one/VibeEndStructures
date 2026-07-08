@@ -37,14 +37,18 @@ public final class DragonFightService {
     }
 
     public DragonSpawnResult spawn(String arenaId, String dragonTypeId, boolean force) {
-        return spawn(arenaId, dragonTypeId, force, true);
+        return spawn(arenaId, dragonTypeId, force, true, false);
+    }
+
+    public DragonSpawnResult spawnScheduled(String arenaId, String dragonTypeId, boolean force) {
+        return spawn(arenaId, dragonTypeId, force, true, true);
     }
 
     public DragonSpawnResult spawnFromEgg(String arenaId, String dragonTypeId) {
-        return spawn(arenaId, dragonTypeId, false, false);
+        return spawn(arenaId, dragonTypeId, false, false, false);
     }
 
-    private DragonSpawnResult spawn(String arenaId, String dragonTypeId, boolean force, boolean eggDropEligible) {
+    private DragonSpawnResult spawn(String arenaId, String dragonTypeId, boolean force, boolean eggDropEligible, boolean scheduledSpawn) {
         DragonArena arena = plugin.getDragonConfig().getArena(arenaId);
         if (arena == null) {
             return DragonSpawnResult.failure("Арена не найдена: " + arenaId);
@@ -82,7 +86,7 @@ public final class DragonFightService {
         DragonArena spawningArena = arena.withSpawning();
         pendingSpawns.add(arena.id());
         plugin.getDragonConfig().updateArena(spawningArena);
-        DragonSpawnRitual ritual = spawner.spawnWithRitual(world, spawningArena, definition, eggDropEligible, dragon -> finishSpawn(spawningArena, definition, dragon));
+        DragonSpawnRitual ritual = spawner.spawnWithRitual(world, spawningArena, definition, eggDropEligible, scheduledSpawn, dragon -> finishSpawn(spawningArena, definition, dragon));
         pendingRituals.put(arena.id(), ritual);
 
         if (plugin.getDragonConfig().getGeneralConfig().announceSpawn()) {
@@ -125,13 +129,16 @@ public final class DragonFightService {
         if (arena == null) {
             return ContributionSnapshot.empty(arenaId, "");
         }
+        // Capture contribution BEFORE cleanup/state updates so rewards cannot race
+        // with checkActiveArenas() seeing a "missing" dead dragon entity.
+        ContributionSnapshot snapshot = contributionTracker.finishFight(arenaId);
         pendingSpawns.remove(arenaId);
         pendingRituals.remove(arenaId);
         if (phaseController != null && arena.activeDragonUuid() != null) {
             phaseController.untrack(arena.activeDragonUuid());
         }
-        ContributionSnapshot snapshot = contributionTracker.finishFight(arenaId);
         cleanupArenaEntities(arena);
+        resolveDragonWorld().ifPresent(spawner::suppressVanillaBattle);
         plugin.getDragonConfig().updateArena(cooldown ? arena.withCooldown() : arena.withClearedCooldown());
         return snapshot;
     }
@@ -153,12 +160,22 @@ public final class DragonFightService {
             if (arena.state() != DragonArena.ArenaState.ACTIVE) {
                 continue;
             }
-            if (arena.activeDragonUuid() == null || findDragon(arena.activeDragonUuid()).isEmpty()) {
+            if (arena.activeDragonUuid() == null) {
                 contributionTracker.clearActiveFight(arena.id());
                 plugin.getDragonConfig().updateArena(arena.withClearedCooldown());
-                if (arena.activeDragonUuid() != null && phaseController != null) {
-                    phaseController.untrack(arena.activeDragonUuid());
-                }
+                continue;
+            }
+            Entity entity = Bukkit.getEntity(arena.activeDragonUuid());
+            if (entity instanceof EnderDragon) {
+                // Living or dying boss still exists — EntityDeathEvent must finish the fight.
+                // Clearing contribution here caused empty loot after the death animation.
+                continue;
+            }
+            // Entity fully gone without a death event (chunk unload / crash remove).
+            contributionTracker.clearActiveFight(arena.id());
+            plugin.getDragonConfig().updateArena(arena.withClearedCooldown());
+            if (phaseController != null) {
+                phaseController.untrack(arena.activeDragonUuid());
             }
         }
     }
@@ -184,8 +201,19 @@ public final class DragonFightService {
             plugin.getDragonConfig().updateArena(cleared);
             return cleared;
         }
-        if (arena.state() == DragonArena.ArenaState.ACTIVE
-                && (arena.activeDragonUuid() == null || findDragon(arena.activeDragonUuid()).isEmpty())) {
+        if (arena.state() == DragonArena.ArenaState.ACTIVE && arena.activeDragonUuid() != null) {
+            Entity entity = Bukkit.getEntity(arena.activeDragonUuid());
+            if (entity instanceof EnderDragon) {
+                return arena;
+            }
+            if (entity == null) {
+                DragonArena cleared = arena.withClearedCooldown();
+                contributionTracker.clearActiveFight(arena.id());
+                plugin.getDragonConfig().updateArena(cleared);
+                return cleared;
+            }
+        }
+        if (arena.state() == DragonArena.ArenaState.ACTIVE && arena.activeDragonUuid() == null) {
             DragonArena cleared = arena.withClearedCooldown();
             contributionTracker.clearActiveFight(arena.id());
             plugin.getDragonConfig().updateArena(cleared);
@@ -201,9 +229,11 @@ public final class DragonFightService {
             return;
         }
         pendingRituals.remove(arena.id());
+        spawner.suppressVanillaBattle(dragon.getWorld());
         DragonArena activeArena = arena.withActiveDragon(dragon.getUniqueId());
         plugin.getDragonConfig().updateArena(activeArena);
         contributionTracker.startFight(activeArena, definition);
+        plugin.getDragonScheduleService().markFirstDragonSpawned();
         if (phaseController != null) {
             phaseController.track(dragon, activeArena, definition);
         }
@@ -214,11 +244,18 @@ public final class DragonFightService {
         if (world == null) {
             return;
         }
+        spawner.suppressVanillaBattle(world);
         Location center = new Location(world, arena.centerX() + 0.5, arena.height(), arena.centerZ() + 0.5);
         double range = arena.radius() + 32.0;
         for (Entity entity : world.getNearbyEntities(center, range, range, range)) {
+            // Never wipe the live boss itself — arena tag is also on the dragon, and
+            // call sites include finishSpawn / completeFight where the dragon must remain
+            // until it naturally dies (or is despawned explicitly).
+            if (entity instanceof EnderDragon) {
+                continue;
+            }
             if (entity.getScoreboardTags().contains("vibedragon:minion")
-                    || entity.getScoreboardTags().contains("vibedragon:arena:" + arena.id())
+                    || entity.getScoreboardTags().contains("vibedragon:ritual")
                     || entity.getScoreboardTags().contains("vibedragon:ritual:" + arena.id())) {
                 entity.remove();
             }
@@ -245,6 +282,27 @@ public final class DragonFightService {
         return Bukkit.getWorlds().stream()
                 .filter(world -> world.getEnvironment() == World.Environment.THE_END)
                 .min(Comparator.comparing(World::getName));
+    }
+
+    public boolean hasOngoingDragonEncounter() {
+        if (!pendingSpawns.isEmpty()) {
+            return true;
+        }
+        for (DragonArena arena : plugin.getDragonConfig().getArenas().values()) {
+            if (!arena.enabled()) {
+                continue;
+            }
+            if (arena.state() == DragonArena.ArenaState.SPAWNING) {
+                return true;
+            }
+            if (arena.state() == DragonArena.ArenaState.ACTIVE && arena.activeDragonUuid() != null) {
+                Entity entity = Bukkit.getEntity(arena.activeDragonUuid());
+                if (entity instanceof EnderDragon dragon && dragon.isValid() && !dragon.isDead()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private String color(String message) {

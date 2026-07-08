@@ -218,7 +218,7 @@ public final class DragonConfig {
         ConfigurationSection general = yaml.getConfigurationSection("general");
         if (general == null) {
             generalConfig = new GeneralDragonConfig(
-                1000, 0.001, 0.01, "PURPLE", "PROGRESS", true, true,
+                1000, 0.001, 0.01, 0.08, "PURPLE", "PROGRESS", true, true,
                 "&d&lДракон %dragon% &r&7побежден! Топ-урон: %top_player% (%top_dmg%)",
                 "&d&lДракон %dragon% &r&7пробудился на арене &b%arena%&7!"
             );
@@ -229,6 +229,7 @@ public final class DragonConfig {
             general.getInt("min-distance-from-origin", 1000),
             general.getDouble("contribution-decay-per-second", 0.001),
             general.getDouble("min-contribution-for-reward", 0.01),
+            general.getDouble("scheduled-egg-drop-chance", 0.08),
             general.getString("boss-bar-color", "PURPLE"),
             general.getString("boss-bar-style", "PROGRESS"),
             general.getBoolean("announce-spawn", true),

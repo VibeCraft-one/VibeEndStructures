@@ -47,6 +47,7 @@ public final class VibeEndStructuresPlugin extends JavaPlugin {
     private DragonKeys dragonKeys;
     private DragonFightService dragonFightService;
     private DragonPhaseController dragonPhaseController;
+    private DragonAbilityExecutor dragonAbilityExecutor;
     private DragonContributionTracker dragonContributionTracker;
     private TitleManager titleManager;
     private RewardDistributor rewardDistributor;
@@ -86,7 +87,7 @@ public final class VibeEndStructuresPlugin extends JavaPlugin {
         rewardDistributor = new RewardDistributor(this, titleManager, dragonEggManager);
         DragonSpawner dragonSpawner = new DragonSpawner(this, dragonKeys);
         dragonFightService = new DragonFightService(this, dragonSpawner, dragonContributionTracker);
-        DragonAbilityExecutor dragonAbilityExecutor = new DragonAbilityExecutor(this);
+        dragonAbilityExecutor = new DragonAbilityExecutor(this);
         dragonPhaseController = new DragonPhaseController(this, dragonFightService, dragonAbilityExecutor);
         dragonFightService.setPhaseController(dragonPhaseController);
         dragonPhaseController.start();
@@ -97,7 +98,7 @@ public final class VibeEndStructuresPlugin extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new ChunkStructureListener(generator), this);
         Bukkit.getPluginManager().registerEvents(new DragonFightListener(this, dragonKeys, dragonFightService, rewardDistributor), this);
-        Bukkit.getPluginManager().registerEvents(new ContributionListener(this, dragonKeys, dragonContributionTracker), this);
+        Bukkit.getPluginManager().registerEvents(new ContributionListener(this, dragonKeys, dragonContributionTracker, dragonAbilityExecutor), this);
         Bukkit.getPluginManager().registerEvents(new DragonEggListener(this), this);
         Bukkit.getPluginManager().registerEvents(new EndAccessListener(this), this);
 
