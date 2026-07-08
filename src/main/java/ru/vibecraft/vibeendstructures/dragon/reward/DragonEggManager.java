@@ -22,6 +22,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import org.bukkit.scheduler.BukkitTask;
 import ru.vibecraft.vibeendstructures.dragon.model.DragonArena;
 import ru.vibecraft.vibeendstructures.dragon.runtime.DragonKeys;
+import ru.vibecraft.vibeendstructures.dragon.runtime.DragonParticles;
 
 import java.util.List;
 import java.util.Map;
@@ -44,6 +45,13 @@ public final class DragonEggManager {
         }
         dropEggFromSky(world, arena);
         return true;
+    }
+
+    public void forceDropEgg(World world, DragonArena arena) {
+        if (world == null || arena == null) {
+            return;
+        }
+        dropEggFromSky(world, arena);
     }
 
     public boolean tryGiveEgg(Player player, double chance) {
@@ -127,9 +135,9 @@ public final class DragonEggManager {
                 double remaining = Math.max(0.0, stand.getLocation().getY() - target.getY());
                 stand.teleport(stand.getLocation().subtract(0, Math.max(0.35, remaining * 0.065), 0));
                 Location loc = stand.getLocation();
-                world.spawnParticle(Particle.END_ROD, loc, 12, 0.35, 0.35, 0.35, 0.02);
-                world.spawnParticle(Particle.DRAGON_BREATH, loc, 18, 0.55, 0.35, 0.55, 0.03);
-                world.spawnParticle(Particle.PORTAL, loc, 10, 0.45, 0.3, 0.45, 0.08);
+                DragonParticles.spawn(plugin, world, Particle.END_ROD, loc, 12, 0.35, 0.35, 0.35, 0.02);
+                DragonParticles.spawn(plugin, world, Particle.DRAGON_BREATH, loc, 18, 0.55, 0.35, 0.55, 0.03);
+                DragonParticles.spawn(plugin, world, Particle.PORTAL, loc, 10, 0.45, 0.3, 0.45, 0.08);
                 if (ticks % 20 == 0) {
                     world.playSound(loc, Sound.BLOCK_AMETHYST_BLOCK_CHIME, SoundCategory.HOSTILE, 1.1f, 1.2f);
                 }
@@ -143,8 +151,8 @@ public final class DragonEggManager {
                         dropped.setCustomNameVisible(true);
                     }
                     dropped.addScoreboardTag("vibedragon:egg_drop");
-                    world.spawnParticle(Particle.EXPLOSION_EMITTER, target, 1);
-                    world.spawnParticle(Particle.END_ROD, target, 80, 1.4, 1.0, 1.4, 0.08);
+                    DragonParticles.spawn(plugin, world, Particle.EXPLOSION_EMITTER, target, 1);
+                    DragonParticles.spawn(plugin, world, Particle.END_ROD, target, 80, 1.4, 1.0, 1.4, 0.08);
                     world.playSound(target, Sound.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 2.0f, 1.35f);
                     taskRef[0].cancel();
                 }

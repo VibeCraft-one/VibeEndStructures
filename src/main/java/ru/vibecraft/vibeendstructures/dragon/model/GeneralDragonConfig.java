@@ -4,6 +4,7 @@ public record GeneralDragonConfig(
     int minDistanceFromOrigin,
     double contributionDecayPerSecond,
     double minContributionForReward,
+    double scheduledEggDropChance,
     String bossBarColor,
     String bossBarStyle,
     boolean announceSpawn,

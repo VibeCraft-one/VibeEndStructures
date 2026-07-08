@@ -17,6 +17,7 @@ import org.bukkit.projectiles.ProjectileSource;
 import ru.vibecraft.vibeendstructures.VibeEndStructuresPlugin;
 import ru.vibecraft.vibeendstructures.dragon.contribution.DragonContributionTracker;
 import ru.vibecraft.vibeendstructures.dragon.runtime.DragonKeys;
+import ru.vibecraft.vibeendstructures.dragon.runtime.DragonAbilityExecutor;
 
 import java.util.Optional;
 
@@ -25,11 +26,13 @@ public final class ContributionListener implements Listener {
     private final VibeEndStructuresPlugin plugin;
     private final DragonKeys keys;
     private final DragonContributionTracker tracker;
+    private final DragonAbilityExecutor abilityExecutor;
 
-    public ContributionListener(VibeEndStructuresPlugin plugin, DragonKeys keys, DragonContributionTracker tracker) {
+    public ContributionListener(VibeEndStructuresPlugin plugin, DragonKeys keys, DragonContributionTracker tracker, DragonAbilityExecutor abilityExecutor) {
         this.plugin = plugin;
         this.keys = keys;
         this.tracker = tracker;
+        this.abilityExecutor = abilityExecutor;
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)
@@ -41,8 +44,10 @@ public final class ContributionListener implements Listener {
         if (arenaId == null) {
             return;
         }
-        resolvePlayer(event.getDamager()).ifPresent(player ->
-                tracker.recordDamage(arenaId, player, event.getFinalDamage()));
+        resolvePlayer(event.getDamager()).ifPresent(player -> {
+            tracker.recordDamage(arenaId, player, event.getFinalDamage());
+            abilityExecutor.recordHit(dragon.getUniqueId(), player.getUniqueId(), event.getFinalDamage());
+        });
     }
 
     @EventHandler(priority = EventPriority.MONITOR, ignoreCancelled = true)

@@ -5,6 +5,8 @@ import net.kyori.adventure.text.format.NamedTextColor;
 import org.bukkit.World;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerTeleportEvent;
 import ru.vibecraft.vibeendstructures.VibeEndStructuresPlugin;
 
@@ -23,6 +25,16 @@ public final class EndAccessListener implements Listener {
         this.plugin = plugin;
     }
 
+    @EventHandler
+    public void onJoin(PlayerJoinEvent event) {
+        plugin.getDragonScheduleService().syncPlayerBossBar(event.getPlayer());
+    }
+
+    @EventHandler(ignoreCancelled = true)
+    public void onWorldChange(PlayerChangedWorldEvent event) {
+        plugin.getDragonScheduleService().syncPlayerBossBar(event.getPlayer());
+    }
+
     @EventHandler(ignoreCancelled = true)
     public void onTeleport(PlayerTeleportEvent event) {
         if (event.getTo() == null || event.getTo().getWorld() == null) {
@@ -32,6 +44,7 @@ public final class EndAccessListener implements Listener {
             return;
         }
         if (event.getPlayer().hasPermission("vibedragon.admin") || plugin.getDragonScheduleService().isEndOpen()) {
+            plugin.getDragonScheduleService().syncPlayerBossBar(event.getPlayer());
             return;
         }
         event.setCancelled(true);

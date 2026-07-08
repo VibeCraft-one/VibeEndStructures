@@ -28,7 +28,6 @@ import java.util.function.Consumer;
 public final class DragonSpawner {
 
     private static final int RITUAL_TICKS = 140;
-    private static final int VANILLA_RESPAWN_TIMEOUT_TICKS = 20 * 90;
 
     private final JavaPlugin plugin;
     private final DragonKeys keys;
@@ -38,15 +37,17 @@ public final class DragonSpawner {
         this.keys = keys;
     }
 
-    public DragonSpawnRitual spawnWithRitual(World world, DragonArena arena, DragonDefinition definition, boolean eggDropEligible, Consumer<EnderDragon> callback) {
+    public DragonSpawnRitual spawnWithRitual(World world, DragonArena arena, DragonDefinition definition, boolean eggDropEligible, boolean scheduledSpawn, Consumer<EnderDragon> callback) {
+        suppressVanillaBattle(world);
         Location center = endPortalCenter(world, arena);
         List<EnderCrystal> crystals = spawnRitualCrystals(world, center, arena);
         Particle primaryParticle = ritualParticle(definition);
+
         BukkitTask particles = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
-            world.spawnParticle(Particle.PORTAL, center.clone().add(0, 2.5, 0), 90, 5.0, 2.5, 5.0, 0.2);
-            world.spawnParticle(primaryParticle, center.clone().add(0, 3.5, 0), 45, 4.0, 2.2, 4.0, 0.04);
-            world.spawnParticle(Particle.END_ROD, center.clone().add(0, 5.0, 0), 25, 2.0, 2.0, 2.0, 0.04);
-            spawnRitualRing(world, center, primaryParticle);
+            DragonParticles.spawn(plugin, world, Particle.PORTAL, center.clone().add(0, 2.5, 0), 90, 5.0, 2.5, 5.0, 0.2);
+            DragonParticles.spawn(plugin, world, primaryParticle, center.clone().add(0, 3.5, 0), 45, 4.0, 2.2, 4.0, 0.04);
+            DragonParticles.spawn(plugin, world, Particle.END_ROD, center.clone().add(0, 5.0, 0), 25, 2.0, 2.0, 2.0, 0.04);
+            spawnRitualRing(world, center, primaryParticle, 5.5, 1.2);
             for (EnderCrystal crystal : crystals) {
                 if (crystal.isValid()) {
                     crystal.setBeamTarget(center.clone().add(0, 7.0, 0));
@@ -56,31 +57,46 @@ public final class DragonSpawner {
 
         world.playSound(center, Sound.BLOCK_BEACON_ACTIVATE, SoundCategory.HOSTILE, 3.0f, 0.7f);
         world.playSound(center, Sound.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 4.0f, 0.65f);
+
+        BukkitTask crescendoTask = Bukkit.getScheduler().runTaskLater(plugin, () -> {
+            for (int i = 0; i < 3; i++) {
+                double pulse = 4.0 + i * 1.5;
+                spawnRitualRing(world, center, primaryParticle, pulse, 1.6 + i * 0.8);
+            }
+            DragonParticles.spawn(plugin, world, Particle.FLASH, center.clone().add(0, 3.0, 0), 3);
+            world.playSound(center, Sound.BLOCK_BEACON_POWER_SELECT, SoundCategory.HOSTILE, 3.0f, 0.55f);
+            world.playSound(center, Sound.ENTITY_ENDER_DRAGON_FLAP, SoundCategory.HOSTILE, 3.5f, 0.55f);
+        }, Math.max(20L, RITUAL_TICKS - 40L));
+
         BukkitTask spawnTask = Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            DragonBattle battle = world.getEnderDragonBattle();
-            boolean vanillaStarted = false;
-            if (battle != null && (battle.getEnderDragon() == null || !battle.getEnderDragon().isValid())) {
-                vanillaStarted = battle.initiateRespawn(crystals);
-            }
-            if (!vanillaStarted) {
-                particles.cancel();
-                removeCrystals(crystals);
-                world.spawnParticle(Particle.EXPLOSION_EMITTER, center.clone().add(0, 2.5, 0), 1);
-                world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, 3.0f, 0.8f);
-                world.playSound(center, Sound.ENTITY_ENDER_DRAGON_FLAP, SoundCategory.HOSTILE, 4.0f, 0.7f);
-                callback.accept(spawn(world, arena, definition, eggDropEligible));
-                return;
-            }
-            waitForVanillaDragon(world, arena, definition, eggDropEligible, callback, particles, crystals, 0);
+            particles.cancel();
+            removeCrystals(crystals);
+            suppressVanillaBattle(world);
+            playSummonBurst(world, center, primaryParticle);
+            EnderDragon dragon = spawn(world, arena, definition, eggDropEligible, scheduledSpawn);
+            callback.accept(dragon);
         }, RITUAL_TICKS);
-        return new DragonSpawnRitual(crystals, particles, spawnTask);
+
+        return new DragonSpawnRitual(crystals, List.of(particles, crescendoTask, spawnTask));
     }
 
-    public EnderDragon spawn(World world, DragonArena arena, DragonDefinition definition, boolean eggDropEligible) {
+    public EnderDragon spawn(World world, DragonArena arena, DragonDefinition definition, boolean eggDropEligible, boolean scheduledSpawn) {
+        suppressVanillaBattle(world);
         Location spawn = spawnLocation(world, arena);
         return world.spawn(spawn, EnderDragon.class, CreatureSpawnEvent.SpawnReason.CUSTOM, dragon -> {
-            configureDragon(dragon, arena, definition, eggDropEligible);
+            configureDragon(dragon, arena, definition, eggDropEligible, scheduledSpawn);
         });
+    }
+
+    private void playSummonBurst(World world, Location center, Particle primaryParticle) {
+        DragonParticles.spawn(plugin, world, Particle.EXPLOSION_EMITTER, center.clone().add(0, 2.5, 0), 1);
+        DragonParticles.spawn(plugin, world, Particle.END_ROD, center.clone().add(0, 4.0, 0), 120, 3.5, 3.0, 3.5, 0.12);
+        DragonParticles.spawn(plugin, world, primaryParticle, center.clone().add(0, 3.0, 0), 80, 4.0, 2.5, 4.0, 0.08);
+        DragonParticles.spawn(plugin, world, Particle.PORTAL, center.clone().add(0, 2.0, 0), 140, 6.0, 3.0, 6.0, 0.6);
+        spawnRitualRing(world, center, primaryParticle, 7.0, 2.0);
+        world.playSound(center, Sound.ENTITY_GENERIC_EXPLODE, SoundCategory.HOSTILE, 3.0f, 0.75f);
+        world.playSound(center, Sound.ENTITY_ENDER_DRAGON_GROWL, SoundCategory.HOSTILE, 5.0f, 0.8f);
+        world.playSound(center, Sound.ENTITY_ENDER_DRAGON_FLAP, SoundCategory.HOSTILE, 4.0f, 0.65f);
     }
 
     private List<EnderCrystal> spawnRitualCrystals(World world, Location center, DragonArena arena) {
@@ -137,36 +153,7 @@ public final class DragonSpawner {
         return 64;
     }
 
-    private void waitForVanillaDragon(
-            World world,
-            DragonArena arena,
-            DragonDefinition definition,
-            boolean eggDropEligible,
-            Consumer<EnderDragon> callback,
-            BukkitTask particles,
-            List<EnderCrystal> crystals,
-            int waitedTicks
-    ) {
-        Bukkit.getScheduler().runTaskLater(plugin, () -> {
-            DragonBattle battle = world.getEnderDragonBattle();
-            EnderDragon dragon = battle == null ? null : battle.getEnderDragon();
-            if (dragon != null && dragon.isValid() && !dragon.isDead()) {
-                particles.cancel();
-                configureDragon(dragon, arena, definition, eggDropEligible);
-                callback.accept(dragon);
-                return;
-            }
-            if (waitedTicks >= VANILLA_RESPAWN_TIMEOUT_TICKS) {
-                particles.cancel();
-                removeCrystals(crystals);
-                callback.accept(spawn(world, arena, definition, eggDropEligible));
-                return;
-            }
-            waitForVanillaDragon(world, arena, definition, eggDropEligible, callback, particles, crystals, waitedTicks + 20);
-        }, 20L);
-    }
-
-    private void configureDragon(EnderDragon dragon, DragonArena arena, DragonDefinition definition, boolean eggDropEligible) {
+    private void configureDragon(EnderDragon dragon, DragonArena arena, DragonDefinition definition, boolean eggDropEligible, boolean scheduledSpawn) {
         Location spawn = spawnLocation(dragon.getWorld(), arena);
         dragon.customName(Component.text(definition.displayName()));
         dragon.setCustomNameVisible(true);
@@ -199,6 +186,33 @@ public final class DragonSpawner {
         if (!eggDropEligible) {
             dragon.addScoreboardTag("vibedragon:summoned_by_egg");
         }
+        if (scheduledSpawn) {
+            dragon.addScoreboardTag("vibedragon:scheduled_spawn");
+        }
+
+        suppressVanillaBattle(dragon.getWorld());
+    }
+
+    /**
+     * Keeps the End DragonBattle from owning the fight, regenerating portal/egg or
+     * starting a vanilla respawn after our custom dragon dies.
+     */
+    public void suppressVanillaBattle(World world) {
+        if (world == null) {
+            return;
+        }
+        DragonBattle battle = world.getEnderDragonBattle();
+        if (battle == null) {
+            return;
+        }
+        battle.setPreviouslyKilled(true);
+        if (battle.getRespawnPhase() != DragonBattle.RespawnPhase.NONE) {
+            battle.setRespawnPhase(DragonBattle.RespawnPhase.NONE);
+        }
+        if (battle.getBossBar() != null) {
+            battle.getBossBar().removeAll();
+            battle.getBossBar().setVisible(false);
+        }
     }
 
     private void removeCrystals(List<EnderCrystal> crystals) {
@@ -219,12 +233,11 @@ public final class DragonSpawner {
         return Particle.DRAGON_BREATH;
     }
 
-    private void spawnRitualRing(World world, Location center, Particle particle) {
-        double radius = 5.5;
-        for (int i = 0; i < 24; i++) {
-            double angle = Math.PI * 2 * i / 24.0;
-            Location point = center.clone().add(Math.cos(angle) * radius, 1.2, Math.sin(angle) * radius);
-            world.spawnParticle(particle, point, 2, 0.08, 0.08, 0.08, 0.01);
+    private void spawnRitualRing(World world, Location center, Particle particle, double radius, double yOffset) {
+        for (int i = 0; i < 28; i++) {
+            double angle = Math.PI * 2 * i / 28.0;
+            Location point = center.clone().add(Math.cos(angle) * radius, yOffset, Math.sin(angle) * radius);
+            DragonParticles.spawn(plugin, world, particle, point, 2, 0.08, 0.08, 0.08, 0.01);
         }
     }
 

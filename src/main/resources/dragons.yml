@@ -86,7 +86,6 @@ dragons:
         abilities:
           - "FIRE_BREATH"
           - "LAVA_POOL"
-          - "METEOR_STRIKE"
       - threshold: 0.3
         abilities:
           - "FIRE_BREATH"
@@ -154,6 +153,7 @@ dragons:
           - "ICE_BREATH"
           - "FROST_NOVA"
           - "BLIZZARD"
+          - "METEOR_STRIKE"
           - "ICE_SPIKES"
           - "FREEZE_AREA"
     egg-drop-chance: 0.3
@@ -224,6 +224,7 @@ general:
   min-distance-from-origin: 1000
   contribution-decay-per-second: 0.001
   min-contribution-for-reward: 0.01
+  scheduled-egg-drop-chance: 0.08
   boss-bar-color: "PURPLE"
   boss-bar-style: "PROGRESS"
   announce-spawn: true

@@ -52,7 +52,7 @@ Operator/admin fallback:
 
 | ID | Scenario | Steps | Expected Result |
 | --- | --- | --- | --- |
-| S1 | Vanilla-style spawn animation | Spawn `ender_dragon` at `ender_arena` | Crystals are centered around `0 0` portal, vanilla beams/respawn animation plays |
+| S1 | Custom spawn ritual | Spawn `ender_dragon` at `ender_arena` | Crystals/beams around portal, custom particles, one plugin dragon appears; no vanilla respawn dragon later |
 | S2 | Fire dragon spawn | Spawn `fire_dragon fire_arena` | Dragon has custom name and fire-themed ritual particles |
 | S3 | Frost dragon spawn | Spawn `frost_dragon frost_arena` | Dragon has custom name and frost-themed ritual particles |
 | S4 | Active arena protection | Spawn while arena ACTIVE | Command rejects the spawn |
@@ -65,8 +65,8 @@ Operator/admin fallback:
 | B1 | Damage contribution | 2 testers damage dragon | `/vibedragon contribute` shows both players with damage |
 | B2 | Phase changes | Reduce dragon HP below 60% and 30% | Actionbar phase changes, phase particles/sound play |
 | B3 | Abilities | Stay in arena during fight | Breath, charge, minion/frost/fire abilities run without console errors |
-| B4 | Bossbar policy | Fight active dragon | Only actionbar should be used by plugin; no custom top bossbar from plugin |
-| B5 | Death animation | Kill dragon | Death ritual runs about 10 seconds before loot appears |
+| B4 | Bossbar policy | Fight active dragon | Only actionbar from plugin; vanilla End bossbar stays hidden; no second dragon after ~10-20s |
+| B5 | Death animation | Kill dragon | Custom death ritual ~10s, then loot; vanilla dragon must NOT spawn |
 
 ## Loot And Egg Tests
 
